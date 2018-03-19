@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Drum-js</title>
+  <style>
+    .keys {
+      display: flex;
+      flex: auto;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .key {
+      border: .4rem solid black;
+      border-radius: .5rem;
+      margin: 1rem;
+      font-size: 1.5rem;
+      padding: 1rem .5rem;
+      transition: all 0.07s ease;
+      width: 10rem;
+      text-align: center;
+      color: white;
+      background: rgba(0, 0, 0, 0.4);
+      text-shadow: 0 0 .5rem black;
+    }
+
+    .playing {
+      transform: scale(1.1);
+      border-color: yellow;
+      box-shadow: 0 0 10px orange;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">hardclap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">ahem</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">bloop</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">bubbles</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">cuckoo</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">fade</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">hearbeat</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">laugh</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">pant</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/hardclap.wav"></audio>
+  <audio data-key="83" src="sounds/ahem.wav"></audio>
+  <audio data-key="68" src="sounds/bloop.wav"></audio>
+  <audio data-key="70" src="sounds/bubbles.wav"></audio>
+  <audio data-key="71" src="sounds/cuckoo.wav"></audio>
+  <audio data-key="72" src="sounds/fade.wav"></audio>
+  <audio data-key="74" src="sounds/heartbeat.wav"></audio>
+  <audio data-key="75" src="sounds/laugh.wav"></audio>
+  <audio data-key="76" src="sounds/pant.wav"></audio>
+
+  <script>
+  //addEventListener similar to onClick.
+function playSound(e) {
+  //querySelector returns the element.
+  //attribute selector can take variable
+  const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+  console.log(key);
+
+  //classList is a property to add/remove/toggle classes on an element.
+  key.classList.add('playing');
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+  //conditional to stop function from running all the time on dif keys.
+  //Exit function when audio does not exist.
+  if (!audio) return;
+  //this will rewind the audio sound to the start so you can press it multiple times.
+  audio.currentTime = 0;
+  console.log(audio);
+  audio.play();
+}
+function removeT(e) {
+  if (e.propertyName !== 'transform') {
+    return;
+  }
+  this.classList.remove('playing');
+}
+
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => {
+  key.addEventListener('transitionend', removeT);
+});
+console.log(keys);
+
+window.addEventListener('keydown', playSound);
+</script>
+</body>
+
+</html>
