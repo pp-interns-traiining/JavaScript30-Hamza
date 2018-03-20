@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Image-js</title>
+  <style>
+    body {
+      margin-left: 35%;
+    }
+
+    /* The :root is where the variables are declared with hyphens --base for example. */
+
+    :root {
+      --base: #f4b042;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    /* The variables can then be injected into css selectors by using var(--base); */
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .h1 {
+      color: var(--base);
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Upadte CSS variables with <span class="h1">JS</span></h2>
+  <div class="controls">
+    <!-- to connect label to input for - name -->
+    <label for="spacing">Spacing</label>
+    <!-- data sizing to declare the suffix -->
+    <input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+    <label for="blur">Blur</label>
+    <input type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+    <label for="base">Base Color</label>
+    <input type="color" name="base" value="#f4b042">
+  </div>
+
+  <img src="http://www.gsfdcy.com/data/img/74/1998667-safari-wallpaper.jpg" height="40%" width="60%" alt="safari">
+
+  <script>
+  const inputs = document.querySelectorAll('.controls input');
+
+function handleUpdate() {
+  // dataset stores anything that is data + hyphen (data-sizing/ data-key etc)
+  const suffix = this.dataset.sizing || '';
+  document.documentElement.style.setProperty(
+    `--${this.name}`,
+    this.value + suffix
+  );
+}
+
+// loop over inputs and cause update based on input change or mousemoving.
+inputs.forEach(input => input.addEventListener('change', handleUpdate));
+inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+</script>
+</body>
+
+</html>

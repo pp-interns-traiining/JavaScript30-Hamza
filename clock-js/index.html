@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Clock-js</title>
+  <style>
+    html {
+      background: url('https://images.pexels.com/photos/547114/pexels-photo-547114.jpeg?w=940&h=650&dpr=2&auto=compress&cs=tinysrgb')no-repeat center center fixed;
+      background-size: cover;
+      background-repeat: no-repeat;
+      text-align: center;
+    }
+
+    .clock {
+      width: 25rem;
+      height: 25rem;
+      border: 20px solid white;
+      border-radius: 50%;
+      margin-top: 10%;
+      margin-left: 35%;
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px);
+    }
+
+    .hand {
+      width: 50%;
+      height:6px;
+      position: absolute;
+      top: 50%;
+      transform: rotate(90deg);
+      transform-origin: 100%;
+      transition: all 0.5s;
+      transition-timing-function: cubic-bezier(0.1, 2.63, 0.58, 1)
+    }
+
+    .clock-hour {
+      background-color: #4289f4;
+    }
+
+    .clock-min {
+      background-color: #f4a941;
+    }
+
+    .clock-second {
+      background-color: #64488e;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="clock">
+    <div class="clock-face">
+      <div class="hand clock-hour"></div>
+      <div class="hand clock-min"></div>
+      <div class="hand clock-second"></div>
+    </div>
+  </div>
+
+  <script>
+const clockSecond = document.querySelector('.clock-second');
+const clockMin = document.querySelector('.clock-min');
+const clockHour = document.querySelector('.clock-hour');
+const Hands = document.querySelectorAll('.hand');
+function setDate() {
+  //initializing the date object.
+  const now = new Date();
+
+  //From the date object use the getSeconds method
+  const seconds = now.getSeconds();
+  const secondDegrees = ((seconds / 60) * 360) + 90;
+  clockSecond.style.transform = `rotate(${secondDegrees}deg)`;
+  //From the date object use the getMinutes method
+  const min = now.getMinutes();
+  const minDegrees = ((min / 60) * 360) + 90;
+  clockMin.style.transform = `rotate(${minDegrees}deg)`;
+  //From the date object use the getHours method
+  const hour = now.getHours();
+  const hourDegrees = ((hour / 60) * 360) + 90;
+  clockHour.style.transform = `rotate(${clockHour}deg)`;
+
+  //This is to fix the problem of when the hand reaches 60s.
+  //Resets the transition to none and otherwise resets it to 0.5s
+  if (secondDegrees == 90) {
+    Hands.forEach(hands => hands.style.transition = 'none');
+  } else {
+    Hands.forEach(hands => hands.style.transition = '');
+  }
+
+  console.log(seconds)
+}
+
+//calls the function every second.
+setInterval(setDate, 1000);
+</script>
+
+</body>
+</html>
