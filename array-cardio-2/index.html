@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Array-cardio-2</title>
+</head>
+<body>
+
+  <script>
+const people = [
+  { name: 'Hamza', year: 1999 },
+  { name: 'Ibrahim', year: 1960 },
+  { name: 'Yusuf', year: 1940 },
+  { name: 'Solomon', year: 1910 }
+];
+
+const comments = [
+  { text: 'Love', id: 898746 },
+  { text: 'Hate', id: 893446 },
+  { text: 'Excellent', id: 492046 },
+  { text: 'Patience', id: 823423 },
+  { text: 'Perseverance', id: 198767 }
+];
+
+//Some and Every Checks
+// Some() / is at least 1 person 19 ?
+const age1 = people.some(item => {
+  return (2018 - item.year) == 19
+});
+console.log(age1);
+
+//Every() / is everyone 19 ?
+const age2 = people.every(item => {
+  return (2018 - item.year) == 19
+});
+console.log(age2);
+
+// Array.prototype.find()
+// Find is like filter, but instead returns just the one you are looking for
+// find the comment with the ID of 823423
+const id = comments.find(item => {
+  return item.id == 823423;
+});
+console.log(id);
+
+// Array.prototype.findIndex()
+// Find the comment with this ID 893446
+const id1 = comments.findIndex(item => {
+  return item.id == 893446;
+});
+console.log(id1);
+
+// delete the comment with the ID of 492046
+const id3 = comments.findIndex(item => {
+  return item.id == 492046;
+});
+//2 ways to delete
+//1st way:
+console.log(comments.splice(id3, 1));
+//2nd way:
+const newC = [...comments.slice(0, id3), ...comments.slice(id3+1)];
+console.log(newC);
+</script>
+</body>
+</html>
