@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ajax-type-ahead</title>
+  <style>
+    .h1{
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <form>
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+
+<script>
+const results =
+  'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+const cities = [];
+fetch(results)
+  .then(data => data.json())
+  .then(item => cities.push(...item));
+
+function findWords(match, cities) {
+  return cities.filter(item => {
+    const regex = new RegExp(match, 'ig');
+    return item.city.match(regex) || item.state.match(regex);
+  });
+}
+
+const search = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+function display() {
+  const arr = findWords(this.value, cities);
+  const html = arr.map(item => {
+    const regex = new RegExp(this.value, 'ig');
+    const cityName = item.city.replace(
+      regex,
+      `<span class="h1">${this.value}</span>`
+    );
+    return `
+      <li>
+        <span>City: ${cityName}, State: ${item.state}</span>
+        <br />
+        <span>Population: ${item.population}</span>
+      </li>
+    `;
+  });
+  suggestions.innerHTML = html;
+}
+
+search.addEventListener('keypress', display);
+</script>
+  </body>
+</html>
