@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dev-tools</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+  const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+function makeGreen() {
+  const p = document.querySelector('p');
+  p.style.color = '#BADA55';
+  p.style.fontSize = '50px';
+}
+
+const p = document.querySelector('p');
+
+// Regular
+console.log('msg');
+//Interpolated
+console.log('str ' + 'variable');
+// Styled
+console.log('%c styled console.log', 'color: red');
+//warning
+console.warn('warning');
+//Error :|
+console.error('error');
+//Info
+console.info('...');
+//Testing
+console.assert(1 === 2, 'That is wrong');
+//clearing
+// console.clear();
+//Viewing DOM Elements
+console.log(p); //shows element
+console.dir(p); //shows what the element contains
+console.clear();
+//Grouping together
+dogs.forEach(item => {
+  //group displays the content..groupCollapsed will hide intial content.
+  console.group(`${item.name}`);
+  console.log(`Dog is called ${item.name}`);
+  console.log(`${item.name} is ${item.age} years old`);
+  console.groupEnd(`${item.name}`);
+});
+//counting
+console.count(); //iterator
+//timing
+console.time('getting data');
+fetch('https://api.github.com/users/wesbos')
+  .then(data => data.json())
+  .then(data => {
+    console.time('getting data');
+    console.log(data);
+  });
+//array of objects in table format
+console.table(dogs);
+</script>
+</body>
+</html>
