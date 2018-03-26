@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+  <script>
+  // Strings/numbers
+let age = 27;
+let age2 = age;
+console.log(age, age2);
+age = 28;
+console.log(age, age2); //changing the intial variable does not update the latter.
+// An array
+const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+// Make a copy of it.
+const team = players;
+console.log(players, team);
+// Team is a reference to the original array (players)
+// update an array it will always reference to original
+// You might think we can just do something like this:
+team[2] = 'hamzy';
+// however what happens when we update that array?
+// now here is the problem!
+// oh no - we have edited the original array too!
+// Why? It's because that is an array reference, not an array copy. They both point to the same array!
+// Way of making a copy of a array so it does not point to the same reference.
+const team2 = players.slice();
+const team3 = [].concat(players);
+const team4 = [...players];
+const team5 = Array.from(players);
+team2[2] = 'donald';
+// now when we update it, the original one isn't changed
+// The same thing goes for objects, let's say we have a person object
+// with Objects
+const person = {
+  name: 'Wes Bos',
+  age: 80
+};
+// and think we make a copy (objects {}):
+// const captain = person; //they share same reference point
+// captain.number = 99; //this will alter the original reference (person)
+
+// Make a copy without sharing reference points
+const captain2 = Object.assign({}, person, { number: 99 });
+// We will hopefully soon see the object ...spread
+const captain3 = { ...person };
+// Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+const person2 = {
+  name: 'hamza',
+  age: 27,
+  social: {
+    twitter: 'none'
+  }
+};
+const mate = Object.assign({}, person2);
+//poor mans deep clone ?
+const mate2 = JSON.parse(JSON.stringify(person2));
+</script>
+
+</body>
+</html>
