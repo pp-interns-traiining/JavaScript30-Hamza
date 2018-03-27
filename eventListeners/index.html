@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EventListeners</title>
+</head>
+<body class="bod">
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after { box-sizing: inherit; }
+  div {
+    width:100%;
+    padding:100px;
+  }
+  .one {
+    background: thistle;
+  }
+  .two {
+    background:mistyrose;
+  }
+  .three {
+    background:coral;
+  }
+</style>
+
+<button></button>
+<script>
+const divs = document.querySelectorAll('div');
+
+function log(e) {
+  console.log(this.classList.value);
+  // e.stopPropagation(); //stop bubbling up
+}
+
+divs.forEach(item => {
+  return item.addEventListener('click', log, {
+    capture: false,
+    once: true //this will cause event to unbind itself. So it will only work once.
+  });
+});
+// capture is by default set to false.
+// by adding the 3rd argument and setting capture to true -
+// it tells the program to run the event from top down rather than capturing
+// and bubbling the events from down to top.
+
+//event capture is from top down div one.
+//event bubble is from down to top.
+</script>
+</body>
+</html>
