@@ -1,0 +1,17 @@
+[{
+	"id": 1,
+	"name": "Hamza",
+	"company": "Packt"
+}, {
+	"id": 2,
+	"name": "Homer",
+	"company": "Channel5"
+}, {
+	"id": 3,
+	"name": "Bugs",
+	"company": "Looney tunes"
+}, {
+	"id": 4,
+	"name": "Ronaldo",
+	"company": "Real madrid"
+}]
