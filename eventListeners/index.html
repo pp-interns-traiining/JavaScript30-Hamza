@@ -39,7 +39,7 @@ const divs = document.querySelectorAll('div');
 
 function log(e) {
   console.log(this.classList.value);
-  // e.stopPropagation(); //stop bubbling up
+  e.stopPropagation(); //stop bubbling up
 }
 
 divs.forEach(item => {
